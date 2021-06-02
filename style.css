@@ -55,17 +55,17 @@ body {
 .c4 {
   background-color: green;
 }
-#quadroDePixels{
+#pixel-board{
   margin-top: 7px;
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 250px;
+  max-height: 250px;
   align-items: center;
   display: inline-block;
 }
 .pixel{
   border: 1px solid black;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: inline-block;
   margin: 1px;
   background-color: rgb(255, 255, 255);
