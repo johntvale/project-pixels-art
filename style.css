@@ -44,22 +44,6 @@ body {
   display: inline-block;
 }
 
-.c1 {
-  background-color: black;
-}
-
-.c2 {
-  background-color: blue;
-}
-
-.c3 {
-  background-color: red;
-}
-
-.c4 {
-  background-color: green;
-}
-
 #pixel-board {
   margin-top: 7px;
   max-width: 250px;
