@@ -1,4 +1,4 @@
-// função criar pixel-board
+// função criar PIXEL-BOARD
 function criarDivs() {
   const tablePrincipal = document.querySelector('#pixel-board');
   for (let index1 = 0; index1 < 5; index1 += 1) {
@@ -12,73 +12,52 @@ function criarDivs() {
 
 criarDivs();
 
-// Criar variáveis contendo as divs da cores principais, atribuir classes de cores
-const cor1 = document.getElementsByTagName('div')[1];
-const colorSelected = 'color selected';
-const color = 'color';
-cor1.className = colorSelected;
-cor1.style.backgroundColor = 'black';
+// Definir Array de Pixels da Paleta, e Array de cores, e Strings para atribuições de classes
 
-const cor2 = document.getElementsByTagName('div')[2];
-cor2.className = 'color';
-cor2.style.backgroundColor = 'blue';
+const arrayPixelsCoresPaleta = [];
+arrayPixelsCoresPaleta[0] = document.getElementsByTagName('div')[1];
+arrayPixelsCoresPaleta[1] = document.getElementsByTagName('div')[2];
+arrayPixelsCoresPaleta[2] = document.getElementsByTagName('div')[3];
+arrayPixelsCoresPaleta[3] = document.getElementsByTagName('div')[4];
 
-const cor3 = document.getElementsByTagName('div')[3];
-cor3.className = 'color';
-cor3.style.backgroundColor = 'red';
+const classesColorSelected = 'color selected';
+const classeColor = 'color';
+const arrayCoresPaleta = ['black', 'blue', 'red', 'green'];
 
-const cor4 = document.getElementsByTagName('div')[4];
-cor4.className = 'color';
-cor4.style.backgroundColor = 'green';
-
-// Verifica qual variável tem a class Selected e atribui caso não seja a Selected
-function selecionaCor1() {
-  if (cor1.className !== colorSelected) {
-    cor1.className = colorSelected;
-    cor2.className = color;
-    cor3.className = color;
-    cor4.className = color;
-  } else {
-    console.log('cor1 selecionada');
+// Definir cores do array na paleta, e definir classe COLOR como padrão
+function definirClasseColorECorInicial() {
+  for (let index3 = 0; index3 < arrayPixelsCoresPaleta.length; index3 += 1) {
+    arrayPixelsCoresPaleta[index3].className = classeColor;
+    arrayPixelsCoresPaleta[index3].style.backgroundColor = arrayCoresPaleta[index3];
   }
 }
+definirClasseColorECorInicial();
 
-function selecionacor2() {
-  if (cor2.className !== colorSelected) {
-    cor1.className = color;
-    cor2.className = colorSelected;
-    cor3.className = color;
-    cor4.className = color;
-  } else {
-    console.log('cor2 selecionada');
+// Definir a classe SELECTED inicialmente na cor preta
+arrayPixelsCoresPaleta[0].className = classesColorSelected;
+
+// Redefinir classe COLOR a todas das divs da paleta e definir classe SELECTED somente na div Clicada.
+function definirSelected(evento) {
+  const atual = evento.target;
+  arrayPixelsCoresPaleta[0].className = classesColorSelected;
+  for (let index4 = 0; index4 < arrayPixelsCoresPaleta.length; index4 += 1) {
+    arrayPixelsCoresPaleta[index4].className = classeColor;
   }
+  atual.className += ' selected';
 }
 
-function selecionacor3() {
-  if (cor3.className !== colorSelected) {
-    cor1.className = color;
-    cor2.className = color;
-    cor3.className = colorSelected;
-    cor4.className = color;
-  } else {
-    console.log('cor3 selecionada');
-  }
+arrayPixelsCoresPaleta[0].addEventListener('click', definirSelected);
+arrayPixelsCoresPaleta[1].addEventListener('click', definirSelected);
+arrayPixelsCoresPaleta[2].addEventListener('click', definirSelected);
+arrayPixelsCoresPaleta[3].addEventListener('click', definirSelected);
+
+// Aplicar o background da classe SELECTED a cada PIXEL que for clicado no PIXEL-BOARD
+function colorirPixel(clicado) {
+  const pixelAtual = clicado.target;
+  const corSelected = document.querySelector('.selected');
+  pixelAtual.style.backgroundColor = corSelected.style.backgroundColor;
 }
-
-function selecionacor4() {
-  if (cor4.className !== colorSelected) {
-    cor1.className = color;
-    cor2.className = color;
-    cor3.className = color;
-    cor4.className = colorSelected;
-  } else {
-    console.log('cor4 selecionada');
-  }
+const recebeClick = document.querySelectorAll('.pixel');
+for (let index5 = 0; index5 < recebeClick.length; index5 += 1) {
+  recebeClick[index5].addEventListener('click', colorirPixel);
 }
-
-cor1.addEventListener('click', selecionaCor1);
-cor2.addEventListener('click', selecionacor2);
-cor3.addEventListener('click', selecionacor3);
-cor4.addEventListener('click', selecionacor4);
-
-// Aplicar a classe selecionada a cada célula que for clicada no pixel board
