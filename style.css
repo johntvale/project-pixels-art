@@ -15,6 +15,7 @@ body {
   text-align: center;
   border-radius: 8px;
 }
+/* ajustes no título */
 #title {
   color: rgb(32, 252, 143);
   padding: 10px;
@@ -29,14 +30,14 @@ body {
   margin: 0 auto;
   text-align: center;
 }
+/* ajustando paleta de cores */
 #color-palette {
-  border: 1px solid red;
   padding: 0;
   max-height: 52px;
   margin-bottom: 10px;
 }
+/* ajustando as cores individuais da paleta. */
 .color {
-  /* background-color: rgb(45, 45, 42); */
   border: 1px solid black;
   width: 50px;
   height: 50px;
@@ -53,4 +54,18 @@ body {
 }
 .c4 {
   background-color: green;
+}
+#quadroDePixels{
+  margin-top: 7px;
+  max-width: 300px;
+  max-height: 300px;
+  align-items: center;
+  display: inline-block;
+}
+.pixels{
+  border: 1px solid black;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  margin: 1px;
 }
