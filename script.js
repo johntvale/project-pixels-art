@@ -61,3 +61,12 @@ const recebeClick = document.querySelectorAll('.pixel');
 for (let index5 = 0; index5 < recebeClick.length; index5 += 1) {
   recebeClick[index5].addEventListener('click', colorirPixel);
 }
+
+function clearBoard() {
+  for (let index6 = 0; index6 < recebeClick.length; index6 += 1) {
+    recebeClick[index6].style.backgroundColor = 'white';
+  }
+}
+
+const bLimpar = document.querySelector('#clear-board');
+bLimpar.addEventListener('click', clearBoard);
