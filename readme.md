@@ -5,7 +5,7 @@
   <br>Além disso, o usuário também poderá utilizar diferentes cores da paleta a cada recarregamento da página, e alterar a quantidade de pixels do quadro de pitura.
   <br><br>Você pode acessá-lo <a href="https://johntvale.github.io/project-pixels-art/">clicando aqui :rocket:</a>.
 
-  :point_right: Observação: Na pasta "Images" do projeto estão alguns desenhos como amostra do que é possível fazer com o quadro de pixels. Não esquece de conferir, você não vai ser arrepender! :smile:
+  :point_right: Observação: Na pasta "images" estão alguns desenhos como amostra do que é possível fazer com o quadro de pixels. Não esquece de conferir, você não vai ser arrepender! :smile:
 
 ---
 
