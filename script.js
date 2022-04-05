@@ -1,72 +1,148 @@
-// função criar PIXEL-BOARD
-function criarDivs() {
-  const tablePrincipal = document.querySelector('#pixel-board');
-  for (let index1 = 0; index1 < 5; index1 += 1) {
-    for (let index2 = 0; index2 < 5; index2 += 1) {
-      const linha = document.createElement('div');
-      linha.className = 'pixel';
-      tablePrincipal.appendChild(linha);
+const classColor = 'color';
+const PIXEL_BOARD = 'pixel-board';
+const classPixel = 'pixel';
+
+// gera cores aleatoriamente
+function randomBackGroundColor() {
+  const red = Math.floor(Math.random() * 255);
+  const green = Math.floor(Math.random() * 255);
+  const blue = Math.floor(Math.random() * 255);
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+
+// Cria a paleta de seleção de cores
+function createColorPalette() {
+  const colorPalette = document.getElementById('color-palette');
+
+  for (let index = 0; index < 4; index += 1) {
+    const colorPixel = document.createElement('div');
+    colorPixel.className = classColor;
+    colorPixel.style.backgroundColor = randomBackGroundColor();
+    if (index === 0) {
+      colorPixel.classList.add('selected');
+      colorPixel.style.backgroundColor = 'black';
+    }
+    colorPalette.appendChild(colorPixel);
+  }
+}
+
+// Ajusta as larguras máximas do "pixelBoard" e "mainBoard"
+function boardSizeAdjustments(boardLength) {
+  const boardPixelLineSize = `${boardLength * 45}px`;
+  const mainBoardSize = `${(boardLength * 45) + 80}px`;
+
+  const pixelBoard = document.getElementById(PIXEL_BOARD);
+  pixelBoard.style.minWidth = boardPixelLineSize;
+
+  const mainBoard = document.getElementById('main');
+  mainBoard.style.minWidth = mainBoardSize;
+}
+
+// Cria pixels do "pixelBoard"
+function createPixelBoard(boardLength = 5) {
+  boardSizeAdjustments(boardLength);
+
+  const pixelBoard = document.getElementById(PIXEL_BOARD);
+
+  for (let lines = 0; lines < boardLength; lines += 1) {
+    const pixelsLine = document.createElement('div');
+    pixelBoard.appendChild(pixelsLine);
+
+    for (let pixel = 0; pixel < boardLength; pixel += 1) {
+      const pixels = document.createElement('div');
+      pixels.className = classPixel;
+      pixelsLine.appendChild(pixels);
     }
   }
 }
 
-criarDivs();
+// adiciona classe "selected" ao evento clicado e remove dos demais
+function changeSelectedColor(event) {
+  const colorSelection = document.getElementsByClassName('color');
+  for (let index = 0; index < colorSelection.length; index += 1) {
+    colorSelection[index].classList.remove('selected');
+  }
 
-// Definir Array de Pixels da Paleta, e Array de cores, e Strings para atribuições de classes
+  event.target.classList.add('selected');
+}
 
-const arrayPixelsCoresPaleta = [];
-arrayPixelsCoresPaleta[0] = document.getElementsByTagName('div')[1];
-arrayPixelsCoresPaleta[1] = document.getElementsByTagName('div')[2];
-arrayPixelsCoresPaleta[2] = document.getElementsByTagName('div')[3];
-arrayPixelsCoresPaleta[3] = document.getElementsByTagName('div')[4];
-
-const classesColorSelected = 'color selected';
-const classeColor = 'color';
-const arrayCoresPaleta = ['black', 'blue', 'red', 'green'];
-
-// Definir cores do array na paleta, e definir classe COLOR como padrão
-function definirClasseColorECorInicial() {
-  for (let index3 = 0; index3 < arrayPixelsCoresPaleta.length; index3 += 1) {
-    arrayPixelsCoresPaleta[index3].className = classeColor;
-    arrayPixelsCoresPaleta[index3].style.backgroundColor = arrayCoresPaleta[index3];
+// adiciona evento "receber click" na paleta de cores
+function addEventChangeSelectedColor() {
+  const colorSelection = document.getElementsByClassName('color');
+  for (let index = 0; index < colorSelection.length; index += 1) {
+    colorSelection[index].addEventListener('click', changeSelectedColor);
   }
 }
-definirClasseColorECorInicial();
 
-// Definir a classe SELECTED inicialmente na cor preta
-arrayPixelsCoresPaleta[0].className = classesColorSelected;
+function changeColor(event) {
+  const color = document.getElementsByClassName('selected');
+  const pixel = event.target;
+  pixel.style.backgroundColor = color[0].style.backgroundColor;
+}
 
-// Redefinir classe COLOR a todas das divs da paleta e definir classe SELECTED somente na div Clicada.
-function definirSelected(evento) {
-  const atual = evento.target;
-  arrayPixelsCoresPaleta[0].className = classesColorSelected;
-  for (let index4 = 0; index4 < arrayPixelsCoresPaleta.length; index4 += 1) {
-    arrayPixelsCoresPaleta[index4].className = classeColor;
+// adiciona evento "mudança de cor" ao pixel em "pixelBoard" quando for clicado
+function addEventChangeColor() {
+  const pixels = document.getElementsByClassName('pixel');
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].addEventListener('click', changeColor);
   }
-  atual.className += ' selected';
 }
 
-arrayPixelsCoresPaleta[0].addEventListener('click', definirSelected);
-arrayPixelsCoresPaleta[1].addEventListener('click', definirSelected);
-arrayPixelsCoresPaleta[2].addEventListener('click', definirSelected);
-arrayPixelsCoresPaleta[3].addEventListener('click', definirSelected);
-
-// Aplicar o background da classe SELECTED a cada PIXEL que for clicado no PIXEL-BOARD
-function colorirPixel(clicado) {
-  const pixelAtual = clicado.target;
-  const corSelected = document.querySelector('.selected');
-  pixelAtual.style.backgroundColor = corSelected.style.backgroundColor;
-}
-const recebeClick = document.querySelectorAll('.pixel');
-for (let index5 = 0; index5 < recebeClick.length; index5 += 1) {
-  recebeClick[index5].addEventListener('click', colorirPixel);
-}
-
+// limpa o "pixelBoard" quando o botão "limpar" for clicado
 function clearBoard() {
-  for (let index6 = 0; index6 < recebeClick.length; index6 += 1) {
-    recebeClick[index6].style.backgroundColor = 'white';
+  const pixels = document.getElementsByClassName('pixel');
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].style.backgroundColor = 'white';
   }
 }
 
-const bLimpar = document.querySelector('#clear-board');
-bLimpar.addEventListener('click', clearBoard);
+// adiciona função "limpar quadro" ao botão "limpar"
+function addEventClearBoard() {
+  const button = document.getElementById('clear-board');
+  button.addEventListener('click', clearBoard);
+}
+
+function minValue(value) {
+  if (value > 0 && value < 5) return true;
+  return false;
+}
+
+function maxValue(value) {
+  if (value > 50) return true;
+  return false;
+}
+
+// altera o tamanho do "pixelBoard" com o botão "VQV"
+function changePixelBoardSize() {
+  const previousPixelBoard = document.getElementById(PIXEL_BOARD);
+  const receivedInput = document.getElementById('board-size');
+  if (minValue(receivedInput.value)) {
+    previousPixelBoard.textContent = '';
+    receivedInput.value = 5;
+    createPixelBoard(5);
+    addEventChangeColor();
+  } else if (maxValue(receivedInput.value)) {
+    previousPixelBoard.textContent = '';
+    receivedInput.value = 50;
+    createPixelBoard(50);
+    addEventChangeColor();
+  } else if (receivedInput.value >= 5 && receivedInput.value <= 50) {
+    previousPixelBoard.textContent = '';
+    createPixelBoard(receivedInput.value);
+    addEventChangeColor();
+  } else alert('Board inválido!');
+}
+
+function addEventChangePixelBoardSize() {
+  const vqv = document.getElementById('generate-board');
+  vqv.addEventListener('click', changePixelBoardSize);
+}
+
+window.onload = () => {
+  createColorPalette();
+  createPixelBoard();
+  addEventChangeSelectedColor();
+  addEventChangeColor();
+  addEventClearBoard();
+  addEventChangePixelBoardSize();
+};
