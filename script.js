@@ -29,7 +29,7 @@ function createColorPalette() {
 // Ajusta as larguras máximas do "pixelBoard" e "mainBoard"
 function boardSizeAdjustments(boardLength) {
   const boardPixelLineSize = `${boardLength * 45}px`;
-  const mainBoardSize = `${(boardLength * 45) + 80}px`;
+  const mainBoardSize = `${(boardLength * 50)}px`;
 
   const pixelBoard = document.getElementById(PIXEL_BOARD);
   pixelBoard.style.minWidth = boardPixelLineSize;
