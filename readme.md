@@ -21,6 +21,7 @@
 ### Habilidades desenvolvidas
 - Manipular o DOM
 - Manipular Javascript.
+- Utilizar elementos Html e CSS com estruturas condicionais
 
 ---
 
